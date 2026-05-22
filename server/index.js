@@ -11,7 +11,13 @@ dns.setServers(['8.8.8.8', '8.8.4.4']);
 dotenv.config();
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: [
+    "https://daily-learning-journal-beryl.vercel.app",
+    "http://localhost:5173"
+  ],
+  credentials: true
+}));
 app.use(express.json());
 
 const PORT = process.env.PORT || 5000;
@@ -56,7 +62,7 @@ app.post('/api/auth/login', async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email, password });
     if (!user) return res.status(400).json({ message: 'Invalid email or password.' });
-    
+
     res.json({ id: user._id, name: user.name, email: user.email, role: user.role, createdAt: user.createdAt });
   } catch (err) {
     res.status(500).json({ message: 'Server error' });
