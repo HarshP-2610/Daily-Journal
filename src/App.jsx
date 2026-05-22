@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://daily-learning-journal.onrender.com';
 
 const B = {
   50: "#eff6ff", 100: "#dbeafe", 200: "#bfdbfe",
@@ -90,7 +90,7 @@ function AuthPage({ page, setPage, onLogin, onRegister, error }) {
         {/* Logo */}
         <div style={{ textAlign: "center", marginBottom: 32 }}>
           <div style={{ width: 56, height: 56, borderRadius: 16, background: B[600], display: "inline-flex", alignItems: "center", justifyContent: "center", marginBottom: 16 }}>
-            <svg width="28" height="28" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            <svg width="28" height="28" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" /></svg>
           </div>
           <h1 style={{ margin: 0, fontSize: 26, fontWeight: 700, color: B[900], letterSpacing: -0.5 }}>Daily Journal</h1>
           <p style={{ margin: "6px 0 0", fontSize: 14, color: "#64748b" }}>Track your daily learning journey</p>
@@ -139,9 +139,9 @@ function AuthPage({ page, setPage, onLogin, onRegister, error }) {
 
 function Navbar({ page, setPage, user, onLogout }) {
   const links = [
-    ...(user.role === "admin" ? [] : [{ id: "dashboard", label: "Dashboard", icon: <svg width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> }]),
-    { id: "topics", label: "Topics", icon: <svg width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> },
-    ...(user.role === "admin" ? [{ id: "admin", label: "Admin", icon: <svg width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> }] : []),
+    ...(user.role === "admin" ? [] : [{ id: "dashboard", label: "Dashboard", icon: <svg width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" /><rect x="14" y="14" width="7" height="7" /><rect x="3" y="14" width="7" height="7" /></svg> }]),
+    { id: "topics", label: "Topics", icon: <svg width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /><line x1="16" y1="13" x2="8" y2="13" /><line x1="16" y1="17" x2="8" y2="17" /><polyline points="10 9 9 9 8 9" /></svg> },
+    ...(user.role === "admin" ? [{ id: "admin", label: "Admin", icon: <svg width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg> }] : []),
   ];
 
   return (
@@ -149,7 +149,7 @@ function Navbar({ page, setPage, user, onLogout }) {
       {/* Brand */}
       <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
         <div style={{ width: 34, height: 34, borderRadius: 9, background: B[600], display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <svg width="17" height="17" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          <svg width="17" height="17" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" /></svg>
         </div>
         <span style={{ fontWeight: 700, fontSize: 17, color: B[900], letterSpacing: -0.3 }}>Daily Journal</span>
       </div>
@@ -177,12 +177,12 @@ function Navbar({ page, setPage, user, onLogout }) {
           </div>
         </div>
         <div style={{ height: 24, width: 1, background: B[100] }} />
-        <button 
-          onClick={onLogout} 
+        <button
+          onClick={onLogout}
           onMouseEnter={e => { e.currentTarget.style.background = "#fee2e2"; e.currentTarget.style.color = "#dc2626"; e.currentTarget.style.borderColor = "#fecaca"; }}
           onMouseLeave={e => { e.currentTarget.style.background = "#fff"; e.currentTarget.style.color = "#64748b"; e.currentTarget.style.borderColor = B[200]; }}
           style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 16px", border: `1.5px solid ${B[200]}`, borderRadius: 10, background: "#fff", color: "#64748b", fontSize: 13.5, fontWeight: 600, cursor: "pointer", fontFamily: S.fontFamily, transition: "all .2s ease", boxShadow: "0 1px 2px rgba(0,0,0,.02)" }}>
-          <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /><polyline points="16 17 21 12 16 7" /><line x1="21" y1="12" x2="9" y2="12" /></svg>
           Sign Out
         </button>
       </div>
@@ -200,10 +200,10 @@ function DashboardPage({ user, entries }) {
   const recent = [...myEntries].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 5);
 
   const stats = [
-    { label: "Total Entries", val: myEntries.length, icon: <svg width="22" height="22" fill="none" stroke={B[600]} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>, color: B[600] },
-    { label: "Topics Covered", val: topics, icon: <svg width="22" height="22" fill="none" stroke="#7c3aed" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>, color: "#7c3aed" },
-    { label: "Tools Used", val: tools, icon: <svg width="22" height="22" fill="none" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>, color: "#059669" },
-    { label: "Today's Entries", val: today, icon: <svg width="22" height="22" fill="none" stroke="#d97706" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>, color: "#d97706" },
+    { label: "Total Entries", val: myEntries.length, icon: <svg width="22" height="22" fill="none" stroke={B[600]} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /></svg>, color: B[600] },
+    { label: "Topics Covered", val: topics, icon: <svg width="22" height="22" fill="none" stroke="#7c3aed" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" /><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" /></svg>, color: "#7c3aed" },
+    { label: "Tools Used", val: tools, icon: <svg width="22" height="22" fill="none" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" /></svg>, color: "#059669" },
+    { label: "Today's Entries", val: today, icon: <svg width="22" height="22" fill="none" stroke="#d97706" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg>, color: "#d97706" },
   ];
 
   return (
@@ -275,10 +275,10 @@ function AdminDashboardPage({ user, entries, users }) {
   const recent = [...entries].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 5);
 
   const stats = [
-    { label: "Total Platform Users", val: users.length, icon: <svg width="22" height="22" fill="none" stroke="#0ea5e9" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>, color: "#0ea5e9" },
-    { label: "Global Entries", val: entries.length, icon: <svg width="22" height="22" fill="none" stroke={B[600]} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>, color: B[600] },
-    { label: "Global Topics", val: topics, icon: <svg width="22" height="22" fill="none" stroke="#7c3aed" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>, color: "#7c3aed" },
-    { label: "Global Today Activity", val: today, icon: <svg width="22" height="22" fill="none" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>, color: "#10b981" },
+    { label: "Total Platform Users", val: users.length, icon: <svg width="22" height="22" fill="none" stroke="#0ea5e9" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>, color: "#0ea5e9" },
+    { label: "Global Entries", val: entries.length, icon: <svg width="22" height="22" fill="none" stroke={B[600]} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /></svg>, color: B[600] },
+    { label: "Global Topics", val: topics, icon: <svg width="22" height="22" fill="none" stroke="#7c3aed" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" /><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" /></svg>, color: "#7c3aed" },
+    { label: "Global Today Activity", val: today, icon: <svg width="22" height="22" fill="none" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12" /></svg>, color: "#10b981" },
   ];
 
   return (
@@ -353,7 +353,7 @@ function EntryForm({ form, setForm, onSave, onCancel, isEdit }) {
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 22 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <div style={{ width: 36, height: 36, borderRadius: 10, background: B[100], display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <svg width="18" height="18" fill="none" stroke={B[700]} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            <svg width="18" height="18" fill="none" stroke={B[700]} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" /><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" /></svg>
           </div>
           <div>
             <h3 style={{ margin: 0, fontSize: 16, fontWeight: 700, color: B[900] }}>{isEdit ? "Edit Entry" : "New Learning Entry"}</h3>
@@ -377,7 +377,7 @@ function EntryForm({ form, setForm, onSave, onCancel, isEdit }) {
       <div style={{ display: "flex", gap: 10, justifyContent: "flex-end", paddingTop: 4 }}>
         <Btn variant="secondary" onClick={onCancel}>Cancel</Btn>
         <Btn onClick={onSave} disabled={!form.topic || !form.learningDetails}>
-          <svg width="15" height="15" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          <svg width="15" height="15" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" /></svg>
           {isEdit ? "Update Entry" : "Save Entry"}
         </Btn>
       </div>
@@ -416,11 +416,11 @@ function EntryCard({ entry, user, onEdit, onDelete }) {
         {canEdit && (
           <div style={{ display: "flex", gap: 6, flexShrink: 0 }}>
             <button onClick={() => onEdit(entry)} style={{ border: `1px solid ${B[200]}`, background: B[50], borderRadius: 8, padding: "6px 10px", cursor: "pointer", color: B[700], display: "flex", alignItems: "center", gap: 4, fontSize: 12, fontWeight: 600, fontFamily: S.fontFamily }}>
-              <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" /><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" /></svg>
               Edit
             </button>
             <button onClick={() => onDelete(entry.id)} style={{ border: "1px solid #fecaca", background: "#fee2e2", borderRadius: 8, padding: "6px 10px", cursor: "pointer", color: "#dc2626", display: "flex", alignItems: "center", gap: 4, fontSize: 12, fontWeight: 600, fontFamily: S.fontFamily }}>
-              <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+              <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6" /><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" /></svg>
               Delete
             </button>
           </div>
@@ -429,12 +429,12 @@ function EntryCard({ entry, user, onEdit, onDelete }) {
 
       {expanded && (
         <div style={{ marginTop: 18, paddingTop: 16, borderTop: `1px solid ${B[100]}` }}>
-          <Field icon={<svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>} label="Important Points" val={entry.importantPoints} />
-          <Field icon={<svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>} label="Queries / Tasks" val={entry.queries} />
+          <Field icon={<svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" /></svg>} label="Important Points" val={entry.importantPoints} />
+          <Field icon={<svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" /><line x1="12" y1="17" x2="12.01" y2="17" /></svg>} label="Queries / Tasks" val={entry.queries} />
           {entry.tools && (
             <div style={{ marginBottom: 4 }}>
               <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 7 }}>
-                <span style={{ color: B[500] }}><svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span>
+                <span style={{ color: B[500] }}><svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" /></svg></span>
                 <span style={{ fontSize: 11.5, fontWeight: 700, color: B[700], textTransform: "uppercase", letterSpacing: 0.5 }}>Tools / Software</span>
               </div>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 7, paddingLeft: 22 }}>
@@ -473,7 +473,7 @@ function TopicsPage({ user, entries, setEntries }) {
     if (editingEntry) {
       try {
         const res = await fetch(`${API_URL}/entries/${editingEntry.id}`, {
-          method: 'PUT', headers: {'Content-Type': 'application/json'},
+          method: 'PUT', headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(form)
         });
         if (res.ok) {
@@ -488,7 +488,7 @@ function TopicsPage({ user, entries, setEntries }) {
       try {
         const newEntryData = { userId: user.id, userName: user.name, ...form };
         const res = await fetch(`${API_URL}/entries`, {
-          method: 'POST', headers: {'Content-Type': 'application/json'},
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(newEntryData)
         });
         if (res.ok) {
@@ -520,7 +520,7 @@ function TopicsPage({ user, entries, setEntries }) {
         const updated = entries.filter(e => e.id !== id);
         setEntries(updated);
       }
-    } catch(err) { console.error(err); }
+    } catch (err) { console.error(err); }
   };
 
   const handleCancel = () => {
@@ -536,7 +536,7 @@ function TopicsPage({ user, entries, setEntries }) {
         <div>
           <h1 style={{ margin: "0 0 4px", fontSize: 24, fontWeight: 700, color: B[900] }}>Daily Learning Journal</h1>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <svg width="15" height="15" fill="none" stroke={B[500]} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <svg width="15" height="15" fill="none" stroke={B[500]} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg>
             <span style={{ color: B[600], fontSize: 14, fontWeight: 600 }}>{formatDate(todayStr())}</span>
           </div>
         </div>
@@ -549,7 +549,7 @@ function TopicsPage({ user, entries, setEntries }) {
           )}
           {!showForm && (
             <Btn onClick={() => { setShowForm(true); setEditingEntry(null); setForm({ date: todayStr(), topic: "", learningDetails: "", importantPoints: "", queries: "", tools: "" }); }}>
-              <svg width="15" height="15" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              <svg width="15" height="15" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
               Add New Entry
             </Btn>
           )}
@@ -563,7 +563,7 @@ function TopicsPage({ user, entries, setEntries }) {
       {displayedEntries.length > 0 && (
         <div style={{ marginBottom: 20 }}>
           <div style={{ position: "relative" }}>
-            <svg width="16" height="16" fill="none" stroke="#94a3b8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24" style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)" }}><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <svg width="16" height="16" fill="none" stroke="#94a3b8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24" style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)" }}><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg>
             <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search topics or learning details..." style={{ width: "100%", boxSizing: "border-box", padding: "10px 14px 10px 40px", border: `1.5px solid ${B[100]}`, borderRadius: 10, fontSize: 14, fontFamily: S.fontFamily, color: "#1e293b", background: "#fff", outline: "none" }} />
           </div>
         </div>
@@ -580,7 +580,7 @@ function TopicsPage({ user, entries, setEntries }) {
       {filtered.length === 0 && (
         <div style={{ textAlign: "center", padding: "60px 20px" }}>
           <div style={{ width: 64, height: 64, borderRadius: 20, background: B[50], display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 18px" }}>
-            <svg width="28" height="28" fill="none" stroke={B[400]} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <svg width="28" height="28" fill="none" stroke={B[400]} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /></svg>
           </div>
           <p style={{ color: "#94a3b8", fontSize: 15, margin: 0 }}>{search ? "No entries match your search." : "No entries yet. Click 'Add New Entry' to get started!"}</p>
         </div>
@@ -612,15 +612,15 @@ export default function App() {
         const e = (eRes && eRes.ok) ? await eRes.json() : [];
         setUsers(u);
         setEntries(e);
-        
+
         const sessionStr = localStorage.getItem('journal-session') || sessionStorage.getItem('journal-session');
         if (sessionStr) {
-           const s = JSON.parse(sessionStr);
-           const found = u.find(x => x.id === s.userId);
-           if (found) {
-             setUser(found);
-             if (found.role === "admin") setPage("admin");
-           }
+          const s = JSON.parse(sessionStr);
+          const found = u.find(x => x.id === s.userId);
+          if (found) {
+            setUser(found);
+            if (found.role === "admin") setPage("admin");
+          }
         }
       } catch (err) {
         console.error("Error fetching data:", err);
@@ -633,7 +633,7 @@ export default function App() {
   const handleLogin = async (f) => {
     try {
       const res = await fetch(`${API_URL}/auth/login`, {
-        method: 'POST', headers: {'Content-Type': 'application/json'},
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: f.email, password: f.password })
       });
       const data = await res.json();
@@ -641,7 +641,7 @@ export default function App() {
       setUser(data);
       if (data.role === "admin") setPage("admin");
       else setPage("dashboard");
-      
+
       const sessionData = JSON.stringify({ userId: data.id });
       if (f.rememberMe) {
         localStorage.setItem("journal-session", sessionData);
@@ -649,7 +649,7 @@ export default function App() {
         sessionStorage.setItem("journal-session", sessionData);
       }
       setAuthErr("");
-    } catch(err) { setAuthErr("Server error. Ensure backend is running."); }
+    } catch (err) { setAuthErr("Server error. Ensure backend is running."); }
   };
 
   const handleRegister = async (f) => {
@@ -658,7 +658,7 @@ export default function App() {
     if (f.password.length < 6) { setAuthErr("Password must be at least 6 characters."); return; }
     try {
       const res = await fetch(`${API_URL}/auth/register`, {
-        method: 'POST', headers: {'Content-Type': 'application/json'},
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: f.name, email: f.email, password: f.password })
       });
       const data = await res.json();
@@ -670,7 +670,7 @@ export default function App() {
       else setPage("dashboard");
       localStorage.setItem("journal-session", JSON.stringify({ userId: data.id }));
       setAuthErr("");
-    } catch(err) { setAuthErr("Server error. Ensure backend is running."); }
+    } catch (err) { setAuthErr("Server error. Ensure backend is running."); }
   };
 
   const handleLogout = () => {
