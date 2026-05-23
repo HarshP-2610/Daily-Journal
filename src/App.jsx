@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const API_URL = 'https://daily-learning-journal.onrender.com';
+const API_URL = 'http://localhost:5000/api';
 
 const B = {
   50: "#eff6ff", 100: "#dbeafe", 200: "#bfdbfe",
