@@ -43,13 +43,13 @@ function Input({ label, type = "text", value, onChange, placeholder, required, r
   );
 }
 
-function Btn({ children, onClick, variant = "primary", size = "md", disabled, style: extra = {} }) {
+function Btn({ children, onClick, variant = "primary", size = "md", disabled, isLoading, style: extra = {} }) {
   const base = {
     border: "none", borderRadius: 10, fontFamily: S.fontFamily, fontWeight: 600,
-    cursor: disabled ? "not-allowed" : "pointer", transition: "all .18s",
+    cursor: disabled || isLoading ? "not-allowed" : "pointer", transition: "all .18s",
     display: "inline-flex", alignItems: "center", gap: 6,
     ...(size === "sm" ? { padding: "6px 14px", fontSize: 13 } : { padding: "10px 22px", fontSize: 14 }),
-    opacity: disabled ? .6 : 1,
+    opacity: disabled || isLoading ? .6 : 1,
     ...extra,
   };
   const variants = {
@@ -58,7 +58,12 @@ function Btn({ children, onClick, variant = "primary", size = "md", disabled, st
     danger: { background: "#fee2e2", color: "#dc2626", border: "1.5px solid #fecaca" },
     ghost: { background: "transparent", color: B[600] },
   };
-  return <button style={{ ...base, ...variants[variant] }} onClick={onClick} disabled={disabled}>{children}</button>;
+  return (
+    <button style={{ ...base, ...variants[variant] }} onClick={onClick} disabled={disabled || isLoading}>
+      {isLoading && <svg style={{ animation: "spin 0.8s linear infinite" }} width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56" /></svg>}
+      {children}
+    </button>
+  );
 }
 
 function Badge({ children, color = "blue" }) {
@@ -78,7 +83,7 @@ function Card({ children, style: extra = {} }) {
 
 // ── Auth Pages ────────────────────────────────────────────────
 
-function AuthPage({ page, setPage, onLogin, onRegister, error }) {
+function AuthPage({ page, setPage, onLogin, onRegister, error, isLoading }) {
   const [loginF, setLoginF] = useState({ email: "", password: "", rememberMe: false });
   const [regF, setRegF] = useState({ name: "", email: "", password: "", confirm: "" });
 
@@ -126,7 +131,7 @@ function AuthPage({ page, setPage, onLogin, onRegister, error }) {
 
           {error && <div style={{ background: "#fee2e2", color: "#dc2626", borderRadius: 8, padding: "10px 14px", fontSize: 13, marginBottom: 16, fontWeight: 500 }}>{error}</div>}
 
-          <Btn onClick={() => isLogin ? onLogin(loginF) : onRegister(regF)} style={{ width: "100%", justifyContent: "center", padding: "12px 22px", fontSize: 15 }}>
+          <Btn onClick={() => isLogin ? onLogin(loginF) : onRegister(regF)} isLoading={isLoading} style={{ width: "100%", justifyContent: "center", padding: "12px 22px", fontSize: 15 }}>
             {isLogin ? "Sign In" : "Create Account"}
           </Btn>
         </Card>
@@ -147,7 +152,7 @@ function Navbar({ page, setPage, user, onLogout }) {
   return (
     <nav style={{ background: "#fff", borderBottom: `1px solid ${B[100]}`, padding: "0 32px", display: "flex", alignItems: "center", justifyContent: "space-between", height: 64, position: "sticky", top: 0, zIndex: 100, boxShadow: "0 1px 3px rgba(37,99,235,.05)", fontFamily: S.fontFamily }}>
       {/* Brand */}
-      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 10, flex: 1 }}>
         <div style={{ width: 34, height: 34, borderRadius: 9, background: B[600], display: "flex", alignItems: "center", justifyContent: "center" }}>
           <svg width="17" height="17" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" /></svg>
         </div>
@@ -155,7 +160,7 @@ function Navbar({ page, setPage, user, onLogout }) {
       </div>
 
       {/* Nav links */}
-      <div style={{ display: "flex", gap: 4 }}>
+      <div style={{ display: "flex", gap: 4, justifyContent: "center" }}>
         {links.map(l => (
           <button key={l.id} onClick={() => setPage(l.id)} style={{ display: "flex", alignItems: "center", gap: 7, padding: "7px 16px", border: "none", borderRadius: 9, cursor: "pointer", fontFamily: S.fontFamily, fontWeight: 600, fontSize: 14, transition: "all .18s", background: page === l.id ? B[50] : "transparent", color: page === l.id ? B[700] : "#64748b", borderBottom: page === l.id ? `2px solid ${B[600]}` : "2px solid transparent" }}>
             {l.icon}{l.label}
@@ -164,7 +169,7 @@ function Navbar({ page, setPage, user, onLogout }) {
       </div>
 
       {/* User area */}
-      <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 20, flex: 1, justifyContent: "flex-end" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <div style={{ width: 38, height: 38, borderRadius: "50%", background: `linear-gradient(135deg, ${B[100]} 0%, ${B[200]} 100%)`, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 14, color: B[700], border: `2px solid #fff`, boxShadow: "0 2px 4px rgba(0,0,0,.05)" }}>{initials(user.name)}</div>
           <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
@@ -347,7 +352,7 @@ function AdminDashboardPage({ user, entries, users }) {
 
 // ── Entry Form Card ───────────────────────────────────────────
 
-function EntryForm({ form, setForm, onSave, onCancel, isEdit }) {
+function EntryForm({ form, setForm, onSave, onCancel, isEdit, isSaving }) {
   return (
     <Card style={{ marginBottom: 28, border: `2px solid ${B[200]}` }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 22 }}>
@@ -376,8 +381,8 @@ function EntryForm({ form, setForm, onSave, onCancel, isEdit }) {
 
       <div style={{ display: "flex", gap: 10, justifyContent: "flex-end", paddingTop: 4 }}>
         <Btn variant="secondary" onClick={onCancel}>Cancel</Btn>
-        <Btn onClick={onSave} disabled={!form.topic || !form.learningDetails}>
-          <svg width="15" height="15" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" /></svg>
+        <Btn onClick={onSave} disabled={!form.topic || !form.learningDetails} isLoading={isSaving}>
+          {!isSaving && <svg width="15" height="15" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" /></svg>}
           {isEdit ? "Update Entry" : "Save Entry"}
         </Btn>
       </div>
@@ -387,7 +392,7 @@ function EntryForm({ form, setForm, onSave, onCancel, isEdit }) {
 
 // ── Entry Card (display) ──────────────────────────────────────
 
-function EntryCard({ entry, user, onEdit, onDelete }) {
+function EntryCard({ entry, user, onEdit, onDelete, onAnswer }) {
   const [expanded, setExpanded] = useState(false);
   const canEdit = user.role === "admin" || entry.userId === user.id;
 
@@ -397,7 +402,7 @@ function EntryCard({ entry, user, onEdit, onDelete }) {
         <span style={{ color: B[500] }}>{icon}</span>
         <span style={{ fontSize: 11.5, fontWeight: 700, color: B[700], textTransform: "uppercase", letterSpacing: 0.5 }}>{label}</span>
       </div>
-      <div style={{ fontSize: 14, color: "#374151", lineHeight: 1.65, paddingLeft: 22 }}>{val}</div>
+      <div style={{ fontSize: 14, color: "#374151", lineHeight: 1.65, paddingLeft: 22, whiteSpace: "pre-wrap" }}>{val}</div>
     </div>
   ) : null;
 
@@ -415,6 +420,10 @@ function EntryCard({ entry, user, onEdit, onDelete }) {
 
         {canEdit && (
           <div style={{ display: "flex", gap: 6, flexShrink: 0 }}>
+            <button onClick={() => onAnswer(entry)} style={{ border: `1px solid ${B[200]}`, background: B[50], borderRadius: 8, padding: "6px 10px", cursor: "pointer", color: B[700], display: "flex", alignItems: "center", gap: 4, fontSize: 12, fontWeight: 600, fontFamily: S.fontFamily }}>
+              <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" /></svg>
+              Answer
+            </button>
             <button onClick={() => onEdit(entry)} style={{ border: `1px solid ${B[200]}`, background: B[50], borderRadius: 8, padding: "6px 10px", cursor: "pointer", color: B[700], display: "flex", alignItems: "center", gap: 4, fontSize: 12, fontWeight: 600, fontFamily: S.fontFamily }}>
               <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" /><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" /></svg>
               Edit
@@ -431,6 +440,12 @@ function EntryCard({ entry, user, onEdit, onDelete }) {
         <div style={{ marginTop: 18, paddingTop: 16, borderTop: `1px solid ${B[100]}` }}>
           <Field icon={<svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" /></svg>} label="Important Points" val={entry.importantPoints} />
           <Field icon={<svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" /><line x1="12" y1="17" x2="12.01" y2="17" /></svg>} label="Queries / Tasks" val={entry.queries} />
+          {entry.answers && (
+            <div style={{ marginTop: 12, marginBottom: 12, padding: "12px 14px", background: "#f8fafc", borderLeft: `3px solid ${B[500]}`, borderRadius: "0 8px 8px 0" }}>
+              <div style={{ fontSize: 11.5, fontWeight: 700, color: B[700], textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 4 }}>Answers</div>
+              <div style={{ fontSize: 14, color: "#374151", lineHeight: 1.65, whiteSpace: "pre-wrap" }}>{entry.answers}</div>
+            </div>
+          )}
           {entry.tools && (
             <div style={{ marginBottom: 4 }}>
               <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 7 }}>
@@ -452,14 +467,56 @@ function EntryCard({ entry, user, onEdit, onDelete }) {
   );
 }
 
+// ── Answer Form Card ──────────────────────────────────────────
+
+function AnswerForm({ entry, onSave, onCancel, isSaving }) {
+  const [answer, setAnswer] = useState(entry.answers || "");
+
+  return (
+    <Card style={{ marginBottom: 28, border: `2px solid ${B[200]}` }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 22 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <div style={{ width: 36, height: 36, borderRadius: 10, background: B[100], display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <svg width="18" height="18" fill="none" stroke={B[700]} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" /></svg>
+          </div>
+          <div>
+            <h3 style={{ margin: 0, fontSize: 16, fontWeight: 700, color: B[900] }}>Q&A for {entry.topic}</h3>
+            <p style={{ margin: 0, fontSize: 12, color: "#94a3b8" }}>Answer your questions and tasks</p>
+          </div>
+        </div>
+        <button onClick={onCancel} style={{ border: "none", background: "transparent", cursor: "pointer", color: "#94a3b8", fontSize: 20, lineHeight: 1 }}>×</button>
+      </div>
+
+      <div style={{ marginBottom: 16, padding: "14px 16px", background: B[50], borderRadius: 10, border: `1px solid ${B[100]}` }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: B[700], marginBottom: 6, textTransform: "uppercase" }}>Questions / Tasks</div>
+        <div style={{ fontSize: 14, color: "#1e293b", lineHeight: 1.6, whiteSpace: "pre-wrap" }}>
+          {entry.queries || "No questions provided in this entry."}
+        </div>
+      </div>
+
+      <Input label="Your Answers" value={answer} onChange={setAnswer} placeholder="Write your answers here..." rows={6} required />
+
+      <div style={{ display: "flex", gap: 10, justifyContent: "flex-end", paddingTop: 4 }}>
+        <Btn variant="secondary" onClick={onCancel}>Cancel</Btn>
+        <Btn onClick={() => onSave({ answers: answer })} disabled={!answer} isLoading={isSaving}>
+          {!isSaving && <svg width="15" height="15" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" /></svg>}
+          Save Answers
+        </Btn>
+      </div>
+    </Card>
+  );
+}
+
 // ── Topics Page ───────────────────────────────────────────────
 
 function TopicsPage({ user, entries, setEntries }) {
   const [showForm, setShowForm] = useState(false);
   const [showGlobal, setShowGlobal] = useState(false);
   const [editingEntry, setEditingEntry] = useState(null);
+  const [answeringEntry, setAnsweringEntry] = useState(null);
   const [search, setSearch] = useState("");
-  const [form, setForm] = useState({ date: todayStr(), topic: "", learningDetails: "", importantPoints: "", queries: "", tools: "" });
+  const [isSaving, setIsSaving] = useState(false);
+  const [form, setForm] = useState({ date: todayStr(), topic: "", learningDetails: "", importantPoints: "", queries: "", tools: "", answers: "" });
 
   const displayedEntries = (user.role === "admin" && showGlobal) ? entries : entries.filter(e => e.userId === user.id);
   const filtered = displayedEntries.filter(e =>
@@ -469,6 +526,7 @@ function TopicsPage({ user, entries, setEntries }) {
 
   const handleSave = async () => {
     if (!form.topic || !form.learningDetails) return;
+    setIsSaving(true);
     let updated;
     if (editingEntry) {
       try {
@@ -481,9 +539,10 @@ function TopicsPage({ user, entries, setEntries }) {
           updated = entries.map(e => e.id === editingEntry.id ? updatedEntry : e);
         } else {
           console.error("Failed to update");
+          setIsSaving(false);
           return;
         }
-      } catch (err) { console.error(err); return; }
+      } catch (err) { console.error(err); setIsSaving(false); return; }
     } else {
       try {
         const newEntryData = { userId: user.id, userName: user.name, ...form };
@@ -496,20 +555,29 @@ function TopicsPage({ user, entries, setEntries }) {
           updated = [newEntry, ...entries];
         } else {
           console.error("Failed to save");
+          setIsSaving(false);
           return;
         }
-      } catch (err) { console.error(err); return; }
+      } catch (err) { console.error(err); setIsSaving(false); return; }
     }
     setEntries(updated);
-    setForm({ date: todayStr(), topic: "", learningDetails: "", importantPoints: "", queries: "", tools: "" });
+    setForm({ date: todayStr(), topic: "", learningDetails: "", importantPoints: "", queries: "", tools: "", answers: "" });
     setEditingEntry(null);
     setShowForm(false);
+    setIsSaving(false);
   };
 
   const handleEdit = (e) => {
     setEditingEntry(e);
-    setForm({ date: e.date, topic: e.topic, learningDetails: e.learningDetails, importantPoints: e.importantPoints, queries: e.queries, tools: e.tools });
+    setForm({ date: e.date, topic: e.topic, learningDetails: e.learningDetails, importantPoints: e.importantPoints, queries: e.queries, tools: e.tools, answers: e.answers || "" });
     setShowForm(true);
+    setAnsweringEntry(null);
+    window.scrollTo(0, 0);
+  };
+
+  const handleAnswer = (e) => {
+    setAnsweringEntry(e);
+    setShowForm(false);
     window.scrollTo(0, 0);
   };
 
@@ -526,7 +594,25 @@ function TopicsPage({ user, entries, setEntries }) {
   const handleCancel = () => {
     setShowForm(false);
     setEditingEntry(null);
-    setForm({ date: todayStr(), topic: "", learningDetails: "", importantPoints: "", queries: "", tools: "" });
+    setForm({ date: todayStr(), topic: "", learningDetails: "", importantPoints: "", queries: "", tools: "", answers: "" });
+  };
+
+  const handleAnswerSave = async ({ answers }) => {
+    setIsSaving(true);
+    try {
+      const res = await fetch(`${API_URL}/entries/${answeringEntry.id}`, {
+        method: 'PUT', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...answeringEntry, answers })
+      });
+      if (res.ok) {
+        const updatedEntry = await res.json();
+        setEntries(entries.map(e => e.id === answeringEntry.id ? updatedEntry : e));
+        setAnsweringEntry(null);
+      } else {
+        console.error("Failed to update answers");
+      }
+    } catch (err) { console.error(err); }
+    setIsSaving(false);
   };
 
   return (
@@ -547,8 +633,8 @@ function TopicsPage({ user, entries, setEntries }) {
               <button onClick={() => setShowGlobal(true)} style={{ padding: "6px 12px", border: "none", borderRadius: 6, fontFamily: S.fontFamily, fontWeight: 600, fontSize: 13, cursor: "pointer", transition: "all .18s", background: showGlobal ? "#fff" : "transparent", color: showGlobal ? B[700] : "#64748b", boxShadow: showGlobal ? "0 1px 4px rgba(0,0,0,.08)" : "none" }}>Global Entries</button>
             </div>
           )}
-          {!showForm && (
-            <Btn onClick={() => { setShowForm(true); setEditingEntry(null); setForm({ date: todayStr(), topic: "", learningDetails: "", importantPoints: "", queries: "", tools: "" }); }}>
+          {(!showForm && !answeringEntry) && (
+            <Btn onClick={() => { setShowForm(true); setEditingEntry(null); setAnsweringEntry(null); setForm({ date: todayStr(), topic: "", learningDetails: "", importantPoints: "", queries: "", tools: "", answers: "" }); }}>
               <svg width="15" height="15" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
               Add New Entry
             </Btn>
@@ -557,7 +643,8 @@ function TopicsPage({ user, entries, setEntries }) {
       </div>
 
       {/* Form */}
-      {showForm && <EntryForm form={form} setForm={setForm} onSave={handleSave} onCancel={handleCancel} isEdit={!!editingEntry} />}
+      {showForm && <EntryForm form={form} setForm={setForm} onSave={handleSave} onCancel={handleCancel} isEdit={!!editingEntry} isSaving={isSaving} />}
+      {answeringEntry && <AnswerForm entry={answeringEntry} onSave={handleAnswerSave} onCancel={() => setAnsweringEntry(null)} isSaving={isSaving} />}
 
       {/* Search */}
       {displayedEntries.length > 0 && (
@@ -585,7 +672,7 @@ function TopicsPage({ user, entries, setEntries }) {
           <p style={{ color: "#94a3b8", fontSize: 15, margin: 0 }}>{search ? "No entries match your search." : "No entries yet. Click 'Add New Entry' to get started!"}</p>
         </div>
       )}
-      {filtered.map(e => <EntryCard key={e.id} entry={e} user={user} onEdit={handleEdit} onDelete={handleDelete} />)}
+      {filtered.map(e => <EntryCard key={e.id} entry={e} user={user} onEdit={handleEdit} onDelete={handleDelete} onAnswer={handleAnswer} />)}
     </div>
   );
 }
@@ -598,6 +685,7 @@ export default function App() {
   const [entries, setEntries] = useState([]);
   const [user, setUser] = useState(null);
   const [authPage, setAuthPage] = useState("login");
+  const [loadingAction, setLoadingAction] = useState(false);
   const [page, setPage] = useState("dashboard");
   const [authErr, setAuthErr] = useState("");
 
@@ -631,6 +719,7 @@ export default function App() {
   }, []);
 
   const handleLogin = async (f) => {
+    setLoadingAction(true);
     try {
       const res = await fetch(`${API_URL}/auth/login`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -650,12 +739,14 @@ export default function App() {
       }
       setAuthErr("");
     } catch (err) { setAuthErr("Server error. Ensure backend is running."); }
+    finally { setLoadingAction(false); }
   };
 
   const handleRegister = async (f) => {
     if (!f.name || !f.email || !f.password) { setAuthErr("All fields are required."); return; }
     if (f.password !== f.confirm) { setAuthErr("Passwords do not match."); return; }
     if (f.password.length < 6) { setAuthErr("Password must be at least 6 characters."); return; }
+    setLoadingAction(true);
     try {
       const res = await fetch(`${API_URL}/auth/register`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -671,6 +762,7 @@ export default function App() {
       localStorage.setItem("journal-session", JSON.stringify({ userId: data.id }));
       setAuthErr("");
     } catch (err) { setAuthErr("Server error. Ensure backend is running."); }
+    finally { setLoadingAction(false); }
   };
 
   const handleLogout = () => {
@@ -689,7 +781,7 @@ export default function App() {
     </div>
   );
 
-  if (!user) return <AuthPage page={authPage} setPage={p => { setAuthPage(p); setAuthErr(""); }} onLogin={handleLogin} onRegister={handleRegister} error={authErr} />;
+  if (!user) return <AuthPage page={authPage} setPage={p => { setAuthPage(p); setAuthErr(""); }} onLogin={handleLogin} onRegister={handleRegister} error={authErr} isLoading={loadingAction} />;
 
   return (
     <div style={{ minHeight: "100vh", background: "#f8fafc", fontFamily: S.fontFamily }}>

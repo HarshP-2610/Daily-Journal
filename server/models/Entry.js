@@ -8,6 +8,7 @@ const entrySchema = new mongoose.Schema({
   learningDetails: { type: String, required: true },
   importantPoints: { type: String },
   queries: { type: String },
+  answers: { type: String },
   tools: { type: String },
 }, { timestamps: true });
 

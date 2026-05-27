@@ -8,7 +8,13 @@ import Entry from './models/Entry.js';
 
 dns.setServers(['8.8.8.8', '8.8.4.4']);
 
-dotenv.config();
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+dotenv.config({ path: path.join(__dirname, '../.env') });
 
 const app = express();
 app.use(cors({
